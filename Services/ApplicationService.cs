@@ -6,7 +6,6 @@ namespace WebScrapping.Services
     {
         private readonly ISetopatiService _thysShopScrappingService;
 
-
         public ApplicationService(
             ISetopatiService thysShopScrappingService
             )
