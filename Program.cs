@@ -13,17 +13,16 @@ namespace WebScrapping
         static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .WriteTo.File($"Log/Log{DateTime.Now:yyyy-MM-dd}.log")
+                .WriteTo.File($"SetopatiLog/Log{DateTime.Now:yyyy-MM-dd}.log")
                 .CreateLogger();
 
             var connectionString = @"Data Source=DESKTOP-D4GLHFV\SQLEXPRESS;Initial Catalog=Scrapping;Integrated Security=True";
             var serviceProvider = new ServiceCollection()
                 .AddSingleton<IApplicationService, ApplicationService>()
-                .AddSingleton<ISetopatiService, SetopatiService>()
                 .AddSingleton<IChromeSeleniumService, ChromeSeleniumService>()
-
                 .AddSingleton<IProductRepository, ProductRepository>()
                 .AddLogging(configure => configure.AddSerilog())
+                .AddSingleton<ISetopatiService, SetopatiService>()
                 .AddDbContext<Context>(o => o.UseSqlServer(connectionString))
                 .BuildServiceProvider();
 
